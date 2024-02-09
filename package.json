@@ -1,0 +1,17 @@
+{
+    "name": "oracleproject",
+    "version": "1.0.0",
+    "private": true,
+    "description": "Demo app",
+    "keywords": [
+        "myapp"
+    ],
+    "author": "Layla Massey",
+    "license": "MIT",
+    "dependencies": {
+        "body-parser": "^1.20.2",
+        "cors": "^2.8.5",
+        "express": "^4.18.2",
+        "oracledb": "^6.3.0"
+    }
+}
