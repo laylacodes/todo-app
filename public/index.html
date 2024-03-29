@@ -1,29 +1,34 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <title>To-Do List App</title>
-        <link rel="stylesheet" type="text/css" href="styles.css" />
-        <script src="script.js"></script>
-    </head>
-    <body>
-        <div class="container">
-            <h2>Add New To-Do Item</h2>
-            <form id="dataForm">
-                Description:
-                <input type="text" id="description" required /><br />
-                Status:
-                <select id="status">
-                    <option value="Pending">Pending</option>
-                    <option value="Completed">Completed</option></select
-                ><br />
-                <button type="button" onclick="submitData()">Submit</button>
-            </form>
-            <div id="insertedDataDisplay" class="data-display">
-                <h3>Inserted Data</h3>
-                <ul id="displayContent">
-                    <!-- Items will be displayed here -->
-                </ul>
-            </div>
-        </div>
-    </body>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do List App</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="list-container">
+        <section class="task-list to-do">
+            <header class="list-header">
+                <h2>To-do</h2>
+                <button class="add-button" id="addTodoBtn" onclick="createNewTodo()">+</button>
+                <!-- Add buttons or actions here -->
+            </header>
+            <ul id="todoItems">
+                <!-- To-do items will be populated here via JavaScript -->
+            </ul>
+        </section>
+        <section class="task-list completed">
+            <header class="list-header">
+                <h2>Completed</h2>
+                <!-- Add buttons or actions here -->
+            </header>
+            <ul id="completedItems">
+                <!-- Completed items will be populated here via JavaScript -->
+            </ul>
+        </section>
+    </div>
+
+    <script src="script.js"></script>
+</body>
 </html>
