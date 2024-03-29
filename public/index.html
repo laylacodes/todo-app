@@ -1,48 +1,29 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Insert Data</title>
+        <title>To-Do List App</title>
         <link rel="stylesheet" type="text/css" href="styles.css" />
+        <script src="script.js"></script>
     </head>
     <body>
         <div class="container">
-            <h2>Layla's first full-stack app</h2>
-            <h3>Insert data below:</h3>
+            <h2>Add New To-Do Item</h2>
             <form id="dataForm">
-                ID: <input type="number" id="id" required /><br />
-                Data: <input type="text" id="data" required /><br />
+                Description:
+                <input type="text" id="description" required /><br />
+                Status:
+                <select id="status">
+                    <option value="Pending">Pending</option>
+                    <option value="Completed">Completed</option></select
+                ><br />
                 <button type="button" onclick="submitData()">Submit</button>
-                <!-- Below the form -->
-                <div id="insertedDataDisplay" class="data-display">
-                    <h3>Inserted Data</h3>
-                    <div id="displayContent">
-                        <!-- Inserted data will appear here -->
-                    </div>
-                </div>
             </form>
+            <div id="insertedDataDisplay" class="data-display">
+                <h3>Inserted Data</h3>
+                <ul id="displayContent">
+                    <!-- Items will be displayed here -->
+                </ul>
+            </div>
         </div>
-
-        <script>
-            async function submitData() {
-                const id = document.getElementById("id").value;
-                const data = document.getElementById("data").value;
-                const response = await fetch("/insert", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify({ id, data }),
-                });
-                if (response.ok) {
-                    // Update the display
-                    const displayContent =
-                        document.getElementById("displayContent");
-                    displayContent.innerHTML = `<p>ID: ${id}<br>Data: ${data}</p>`;
-                    alert("Data inserted successfully");
-                } else {
-                    alert("Failed to insert data");
-                }
-            }
-        </script>
     </body>
 </html>

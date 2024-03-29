@@ -1,1 +1,0 @@
-(description= (retry_count=20)(retry_delay=3)(address=(protocol=tcps)(port=1521)(host=adb.us-phoenix-1.oraclecloud.com))(connect_data=(service_name=ge1a5fd8f6c4dbf_gabbagool_high.adb.oraclecloud.com))(security=(ssl_server_dn_match=yes)))
