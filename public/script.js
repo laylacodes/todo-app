@@ -3,31 +3,63 @@ async function fetchTodos() {
     const response = await fetch("/items");
     if (response.ok) {
         const items = await response.json();
-        const itemsContainer = document.getElementById("displayContent");
-        itemsContainer.innerHTML = ""; // Clear existing items
+        const todoItemsContainer = document.getElementById("todoItems");
+        const completedItemsContainer = document.getElementById("completedItems");
+
+        // Clear existing items
+        todoItemsContainer.innerHTML = "";
+        completedItemsContainer.innerHTML = "";
+
+        // Sort items into todo and completed lists
         items.forEach((item) => {
             const itemElement = document.createElement("li");
-            itemElement.textContent = `ID: ${item.ID} - Description: ${item.DESCRIPTION}, Status: ${item.STATUS}`;
-            // Add Delete button
-            const deleteButton = document.createElement("button");
-            deleteButton.textContent = "Delete";
-            deleteButton.onclick = function () {
-                deleteTodo(item.ID);
-            };
+            //itemElement.textContent = `ID: ${item.ID} - Description: ${item.DESCRIPTION}`;
+            itemElement.textContent = `${item.DESCRIPTION}`;
+            const deleteButton = createDeleteButton(item.ID);
+            const editButton = createEditButton(item.ID);
+
             itemElement.appendChild(deleteButton);
-            // Add Edit button
-            const editButton = document.createElement("button");
-            editButton.textContent = "Edit";
-            editButton.onclick = function () {
-                editTodo(item.ID);
-            };
             itemElement.appendChild(editButton);
-            itemsContainer.appendChild(itemElement);
+
+            if (item.STATUS === 'Pending') {
+                todoItemsContainer.appendChild(itemElement);
+            } else if (item.STATUS === 'Completed') {
+                completedItemsContainer.appendChild(itemElement);
+            }
         });
     } else {
         alert("Failed to fetch to-do items.");
     }
 }
+
+// Function to create a delete button
+function createDeleteButton(id) {
+    const deleteButton = document.createElement("button");
+    deleteButton.textContent = "Delete";
+    deleteButton.onclick = function () {
+        deleteTodo(id);
+    };
+    return deleteButton;
+}
+
+// Function to create an edit button
+function createEditButton(id) {
+    const editButton = document.createElement("button");
+    editButton.textContent = "Edit";
+    editButton.onclick = function () {
+        editTodo(id);
+    };
+    return editButton;
+}
+
+// Add new todo button
+// event listener for add button
+document.getElementById('addTodoBtn').addEventListener('click', function() {
+    const description = prompt("Enter the description for the new to-do:");
+    if (description) { // Check if the description is not empty
+        submitData(description, 'Pending'); // 'Pending' is the status for new to-dos
+    }
+});
 
 // Function to delete a to-do item
 async function deleteTodo(id) {
@@ -105,3 +137,5 @@ async function submitData() {
 
 // Fetch and display todos when the page loads
 window.onload = fetchTodos;
+
+
