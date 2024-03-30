@@ -10,7 +10,7 @@ app.use(cors()); // Enable CORS
 app.use(bodyParser.json()); // Parse JSON bodies
 app.use(express.static('public')); // Serve static files from the 'public' directory
 
-// get all items
+// GET ALL TO-DO ITEMS
 app.get('/items', async (req, res) => {
   let connection;
   try {
@@ -33,7 +33,7 @@ app.get('/items', async (req, res) => {
 });
 
 
-// insert values
+// CREATE NEW TO-DO ITEM
 app.post('/insert', async (req, res) => {
   let connection;
   try {
@@ -64,7 +64,7 @@ app.post('/insert', async (req, res) => {
   }
 });
 
-// delete
+// DELETE TO-DO ITEM
 app.delete('/item/:id', async (req, res) => {
   let connection;
   try {
@@ -87,7 +87,7 @@ app.delete('/item/:id', async (req, res) => {
   }
 });
 
-// edit to-do
+// EDIT TO-DO ITEM
 app.put('/update/:id', async (req, res) => {
   let connection;
   try {
@@ -118,8 +118,6 @@ app.put('/update/:id', async (req, res) => {
 });
 
 
-
 app.listen(port, () => {
   console.log(`Server listening at http://localhost:${port}`);
 });
-

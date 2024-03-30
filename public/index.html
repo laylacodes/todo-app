@@ -1,34 +1,77 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>To-Do List App</title>
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-    <div class="list-container">
-        <section class="task-list to-do">
-            <header class="list-header">
-                <h2>To-do</h2>
-                <button class="add-button" id="addTodoBtn" onclick="createNewTodo()">+</button>
-                <!-- Add buttons or actions here -->
-            </header>
-            <ul id="todoItems">
-                <!-- To-do items will be populated here via JavaScript -->
-            </ul>
-        </section>
-        <section class="task-list completed">
-            <header class="list-header">
-                <h2>Completed</h2>
-                <!-- Add buttons or actions here -->
-            </header>
-            <ul id="completedItems">
-                <!-- Completed items will be populated here via JavaScript -->
-            </ul>
-        </section>
-    </div>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>To-Do List App</title>
+        <link rel="stylesheet" href="styles.css" />
+    </head>
+    <body>
+        <div class="list-container">
+            <section class="task-list to-do">
+                <header class="list-header">
+                    <h2>To-do</h2>
+                    <button class="add-button" id="addTodoBtn" onclick="showAddModal()">+</button>
 
-    <script src="script.js"></script>
-</body>
+                    <!-- Add buttons or actions here -->
+                </header>
+                <ul id="todoItems">
+                    <!-- To-do items will be populated here via JavaScript -->
+                </ul>
+            </section>
+            <section class="task-list completed">
+                <header class="list-header">
+                    <h2>Completed</h2>
+                    <!-- Add buttons or actions here -->
+                </header>
+                <ul id="completedItems">
+                    <!-- Completed items will be populated here via JavaScript -->
+                </ul>
+            </section>
+        </div>
+
+        <!-- The Edit Modal -->
+        <div id="editModal" class="modal">
+            <!-- Modal content -->
+            <div class="modal-content">
+                <span class="close" onclick="closeModal()">&times;</span>
+                <form id="editForm">
+                    <label for="editDescription">Description:</label>
+                    <input
+                        type="text"
+                        id="editDescription"
+                        name="description"
+                        required
+                    />
+
+                    <label for="editStatus">Status:</label>
+                    <select id="editStatus" name="status" required>
+                        <option value="Pending">Pending</option>
+                        <option value="Completed">Completed</option>
+                    </select>
+
+                    <input type="submit" value="Update" />
+                </form>
+            </div>
+        </div>
+        <!-- The Add New Todo Modal -->
+        <div id="addTodoModal" class="modal">
+            <!-- Modal content -->
+            <div class="modal-content">
+                <span class="close" onclick="closeAddModal()">&times;</span>
+                <form id="addForm">
+                    <label for="addDescription">Description:</label>
+                    <input
+                        type="text"
+                        id="addDescription"
+                        name="description"
+                        required
+                    />
+                    <input type="submit" value="Add" />
+                </form>
+            </div>
+        </div>
+
+        <script src="script.js"></script>
+    </body>
 </html>
