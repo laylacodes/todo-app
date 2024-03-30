@@ -1,3 +1,4 @@
+require('dotenv').config(); // DATABASE CREDENTIALS
 const express = require('express');
 const oracledb = require('oracledb');
 const bodyParser = require('body-parser');
@@ -15,9 +16,9 @@ app.get('/items', async (req, res) => {
   let connection;
   try {
     connection = await oracledb.getConnection({
-      user: "ADMIN",
-      password: "NikoMassey2023",
-      connectionString: "(description= (retry_count=20)(retry_delay=3)(address=(protocol=tcps)(port=1522)(host=adb.us-phoenix-1.oraclecloud.com))(connect_data=(service_name=ge1a5fd8f6c4dbf_gabbagool_low.adb.oraclecloud.com))(security=(ssl_server_dn_match=yes)))"
+      user: process.env.DB_USER,
+      password: process.env.DB_PASSWORD,
+      connectionString: process.env.DB_CONNECTION_STRING
     });
 
     const result = await connection.execute(`SELECT * FROM nodetab`, [], { outFormat: oracledb.OUT_FORMAT_OBJECT });
@@ -38,9 +39,9 @@ app.post('/insert', async (req, res) => {
   let connection;
   try {
     connection = await oracledb.getConnection({
-      user: "ADMIN",
-      password: "NikoMassey2023",
-      connectionString: "(description= (retry_count=20)(retry_delay=3)(address=(protocol=tcps)(port=1522)(host=adb.us-phoenix-1.oraclecloud.com))(connect_data=(service_name=ge1a5fd8f6c4dbf_gabbagool_low.adb.oraclecloud.com))(security=(ssl_server_dn_match=yes)))"
+      user: process.env.DB_USER,
+      password: process.env.DB_PASSWORD,
+      connectionString: process.env.DB_CONNECTION_STRING
     });
 
     const { description, status } = req.body;
@@ -69,9 +70,9 @@ app.delete('/item/:id', async (req, res) => {
   let connection;
   try {
     connection = await oracledb.getConnection({
-      user: "ADMIN",
-      password: "NikoMassey2023",
-      connectionString: "(description= (retry_count=20)(retry_delay=3)(address=(protocol=tcps)(port=1522)(host=adb.us-phoenix-1.oraclecloud.com))(connect_data=(service_name=ge1a5fd8f6c4dbf_gabbagool_low.adb.oraclecloud.com))(security=(ssl_server_dn_match=yes)))"
+      user: process.env.DB_USER,
+      password: process.env.DB_PASSWORD,
+      connectionString: process.env.DB_CONNECTION_STRING
     });
 
     const { id } = req.params;
@@ -92,9 +93,9 @@ app.put('/update/:id', async (req, res) => {
   let connection;
   try {
       connection = await oracledb.getConnection({
-        user: "ADMIN",
-        password: "NikoMassey2023",
-        connectionString: "(description= (retry_count=20)(retry_delay=3)(address=(protocol=tcps)(port=1522)(host=adb.us-phoenix-1.oraclecloud.com))(connect_data=(service_name=ge1a5fd8f6c4dbf_gabbagool_low.adb.oraclecloud.com))(security=(ssl_server_dn_match=yes)))"
+        user: process.env.DB_USER,
+        password: process.env.DB_PASSWORD,
+        connectionString: process.env.DB_CONNECTION_STRING
       });
       const { id, description, status } = req.body;
       const result = await connection.execute(
