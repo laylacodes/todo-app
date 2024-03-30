@@ -1,0 +1,5 @@
+# .gitignore content
+.env
+
+# Dependencies
+node_modules/
