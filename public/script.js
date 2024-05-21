@@ -5,12 +5,14 @@ async function fetchTodos() {
         const items = await response.json();
         const todoItemsContainer = document.getElementById("todoItems");
         const completedItemsContainer = document.getElementById("completedItems");
+        const tomorrowsItemsContainer = document.getElementById("tomorrowsItems"); // Get the container for tomorrow's tasks
 
-        // Clear existing items
+        // Clear existing items in all containers
         todoItemsContainer.innerHTML = "";
         completedItemsContainer.innerHTML = "";
+        tomorrowsItemsContainer.innerHTML = ""; // Clear the container for tomorrow's tasks as well
 
-        // Sort items into todo and completed lists
+        // Sort items into todo, completed, and tomorrow's lists
         items.forEach((item) => {
             // Create a new list item
             const itemElement = document.createElement("li");
@@ -18,35 +20,31 @@ async function fetchTodos() {
             itemElement.setAttribute("data-description", item.DESCRIPTION);
             itemElement.setAttribute("data-status", item.STATUS);
 
-            // Populate the list item
+            // Populate the list item with delete and edit buttons, and text span
             const deleteButton = createDeleteButton(item.ID);
             const editButton = createEditButton(item.ID);
-
-            // Create a span to hold the text
             const textSpan = document.createElement("span");
             textSpan.textContent = item.DESCRIPTION;
-
-            // Create a container for icons
             const iconContainer = document.createElement("div");
             iconContainer.classList.add("icon-container");
-
-            // Append icons to the container
-            iconContainer.appendChild(createDeleteButton(item.ID));
-            iconContainer.appendChild(createEditButton(item.ID));
+            iconContainer.appendChild(deleteButton);
+            iconContainer.appendChild(editButton);
 
             if (item.STATUS === 'Completed') {
-                textSpan.classList.add('completed-text'); // Apply class to textSpan for strikethrough
+                textSpan.classList.add('completed-text');
             }
 
             // Append the container to the list item
             itemElement.appendChild(textSpan);
             itemElement.appendChild(iconContainer);
 
-            // Append to the appropriate container
+            // Append to the appropriate container based on the status
             if (item.STATUS === 'Pending') {
                 todoItemsContainer.appendChild(itemElement);
             } else if (item.STATUS === 'Completed') {
                 completedItemsContainer.appendChild(itemElement);
+            } else if (item.STATUS === 'Tomorrow') {
+                tomorrowsItemsContainer.appendChild(itemElement);
             }
         });
     } else {
@@ -77,30 +75,33 @@ function createEditButton(id) {
 }
 
 
-// Function to show the add new todo modal
+// Function to show the ADD NEW TO-DO MODAL
 function showAddModal() {
-    // Clear previous input value
-    document.getElementById('addDescription').value = ''; 
-    // Display the modal
+    document.getElementById('addDescription').value = ''; // Clear previous input value
+    document.getElementById('addStatus').value = 'Pending'; // Set the status to 'Pending' for today's tasks
     const modal = document.getElementById('addTodoModal');
-    modal.style.display = 'block';
+    modal.style.display = 'block'; // Display the modal
 }
+document.getElementById('addTodoBtn').addEventListener('click', showAddModal);
 
+// Function to show the ADD NEW TO-DO MODAL with the "Tomorrow" status
+function showAddModalForTomorrow() {
+    document.getElementById('addDescription').value = ''; // Clear previous input value
+    const modal = document.getElementById('addTodoModal');
+    modal.style.display = 'block'; // Display the modal
+    document.getElementById('addStatus').value = 'Tomorrow'; // Set the status to 'Tomorrow'
+}
 // Function to close the add new todo modal
 function closeAddModal() {
     const modal = document.getElementById('addTodoModal');
     modal.style.display = 'none';
 }
-
 // Event listener for the add new todo form submission
 document.getElementById('addForm').addEventListener('submit', function(event) {
     event.preventDefault();
-    const description = document.getElementById('addDescription').value; // Correct ID for the input field
-    submitData(description); // Call submitData with the new description
+    submitData(); // Call submitData without parameters
     closeAddModal(); // Close the modal after submitting
 });
-
-
 
 // Function to delete a to-do item
 async function deleteTodo(id) {
@@ -135,6 +136,8 @@ function showEditModal(id) {
         submitEdit(id);
     };
 }
+// Event listener for ADD TO-DO modal button
+document.getElementById('addTomorrowsTaskBtn').addEventListener('click', showAddModalForTomorrow);
 
 // Function to close the modal
 function closeModal() {
@@ -176,8 +179,13 @@ function submitEdit(id) {
 
 
 // Function to submit new to-do item
-async function submitData(description, status = 'Pending') { // Set 'Pending' as default status
+async function submitData() {
+    // Retrieve the description and status from the modal inputs
+    const description = document.getElementById('addDescription').value;
+    const status = document.getElementById('addStatus').value; // Retrieve the status from the hidden input
+
     const requestBody = { description, status };
+    
     const response = await fetch("/insert", {
         method: "POST",
         headers: {
@@ -185,13 +193,24 @@ async function submitData(description, status = 'Pending') { // Set 'Pending' as
         },
         body: JSON.stringify(requestBody),
     });
+    
     if (response.ok) {
         fetchTodos(); // Refresh the list
+        closeAddModal(); // Close the modal after successful insertion
         alert("Data inserted successfully");
     } else {
         alert("Failed to insert data");
     }
 }
+
+document.addEventListener('DOMContentLoaded', function() {
+    var calendarEl = document.getElementById('calendar');
+    var calendar = new FullCalendar.Calendar(calendarEl, {
+        initialView: 'dayGridMonth',
+        // Add other options as needed
+    });
+    calendar.render();
+});
 
 // Fetch and display todos when the page loads
 window.onload = fetchTodos;

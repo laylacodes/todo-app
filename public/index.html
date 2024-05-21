@@ -5,13 +5,31 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>To-Do List App</title>
         <link rel="stylesheet" href="styles.css" />
+        <script src='https://unpkg.com/fullcalendar@5/main.min.js'></script>
+        <link href='https://unpkg.com/fullcalendar@5/main.min.css' rel='stylesheet' />
     </head>
     <body>
+            <!-- Sidebar navigation -->
+    <!-- <aside class="sidebar">
+        <div class="profile">
+            <img src="cat.jpg" alt="Profile Picture" class="profile-pic">
+            <h3>Tahlia</h3>
+        </div>
+        <nav class="nav-links">
+            <a href="#">Quick Find</a>
+            <a href="#">Settings</a>
+            <a href="#">To-Do List</a>
+            <a href="#">School</a>
+            <a href="#">Freelance Stuff</a>
+            <a href="#">The Sims 4</a>
+            <!-- Add more links as needed -->
+        <!-- </nav>
+    </aside>  -->
         <div class="list-container">
             <section class="task-list to-do">
                 <header class="list-header">
                     <h2>To-do</h2>
-                    <button class="add-button" id="addTodoBtn" onclick="showAddModal()">+</button>
+                    <button class="add-button" id="addTodoBtn">+</button>
 
                     <!-- Add buttons or actions here -->
                 </header>
@@ -28,6 +46,21 @@
                     <!-- Completed items will be populated here via JavaScript -->
                 </ul>
             </section>
+            <section class="task-list tomorrow">
+                <header class="list-header">
+                    <h2>Tomorrow</h2>
+                    <button class="add-button" id="addTomorrowsTaskBtn">+</button>
+                </header>
+                <ul id="tomorrowsItems">
+                    <!-- Tomorrow's to-do items will be populated here via JavaScript -->
+                </ul>
+            </section>
+            
+        </section>
+        <!-- <section class="calendar-widget"> -->
+            <!-- Placeholder for the calendar widget -->
+            <!-- <div id="calendar"></div> -->
+        <!-- </section> -->
         </div>
 
         <!-- The Edit Modal -->
@@ -68,6 +101,9 @@
                         required
                     />
                     <input type="submit" value="Add" />
+                    <!-- Inside the addForm form -->
+                    <input type="hidden" id="addStatus" name="status" value="Pending" />
+
                 </form>
             </div>
         </div>

@@ -9,6 +9,109 @@ body, html {
     align-items: center;
 }
 
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body, html {
+    height: 100%;
+    font-family: 'Arial', sans-serif;
+    background-color: #f0f2f5;
+}
+
+/* The main layout */
+.sidebar {
+    width: 250px;
+    background-color: #ffffff;
+    min-height: 100vh;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+}
+
+.profile {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.profile-pic {
+    border-radius: 50%;
+    width: 80px;
+    height: 80px;
+}
+
+.nav-links a {
+    display: block;
+    padding: 10px;
+    color: #333;
+    text-decoration: none;
+    font-size: 1.1em;
+    margin-bottom: 5px;
+    transition: background-color 0.3s;
+}
+
+.nav-links a:hover {
+    background-color: #e9ecef;
+}
+
+.main-content {
+    margin-left: 250px;
+    padding: 20px;
+}
+
+.task-panel {
+    display: flex;
+    justify-content: space-between;
+}
+
+.task-list {
+    background-color: #ffffff;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 30%; /* Adjust width as necessary */
+    margin-right: 20px;
+}
+
+/* The last task-list (Tomorrow's To-Do) does not need margin on the right */
+.task-list:last-child {
+    margin-right: 0;
+}
+
+.calendar-widget {
+    /* Placeholder styles for the calendar */
+    background-color: #ffffff;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%; /* Adjust width as necessary */
+    margin-top: 20px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1200px) {
+    .sidebar {
+        width: 200px;
+    }
+
+    .main-content {
+        margin-left: 200px;
+    }
+
+    .task-panel {
+        flex-direction: column;
+    }
+
+    .task-list,
+    .calendar-widget {
+        width: 100%;
+        margin-right: 0;
+        margin-bottom: 20px;
+    }
+}
+
+
 /* New styles */
 .icon-container {
     margin-left: auto; /* Push the container to the end of the flex item */
@@ -184,4 +287,90 @@ body, html {
 .modal-content form input[type="submit"] {
     width: auto;
     padding: 10px 20px;
+}
+#calendar {
+    font-family: 'Arial', sans-serif;
+    border: 1px solid #e0e0e0; /* Light grey border */
+    border-radius: 10px; /* Rounded corners */
+    background-color: #ffffff; /* White background */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05); /* Subtle shadow for depth */
+    padding: 16px; /* Adjust padding as necessary */
+    width: 280px; /* Set a fixed width to match the mockup */
+    margin: auto; /* Center the calendar in the available space */
+    font-size: 14px; /* Adjust font size as necessary */
+}
+
+/* Style for the calendar navigation header */
+.calendar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px; /* Space below the header */
+    font-weight: bold;
+    font-size: 16px; /* Larger font size for the month and year */
+}
+
+/* Style for the navigation buttons */
+.calendar-header button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 24px; /* Large arrow buttons */
+    color: #757575; /* Arrow color */
+}
+
+/* Style for the days of the week */
+.day-of-week {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 10px; /* Padding on the sides */
+    margin-bottom: 10px;
+}
+
+/* Style for the individual day cells */
+.day {
+    width: 32px; /* Fixed width for square cells */
+    height: 32px; /* Fixed height for square cells */
+    line-height: 32px; /* Center the text vertically */
+    text-align: center;
+    margin-bottom: 8px; /* Space below each row */
+    color: #757575; /* Text color for days */
+}
+
+.day:not(.empty):hover {
+    background-color: #e0e0e0; /* Hover state for days */
+    border-radius: 50%; /* Rounded hover background */
+    cursor: pointer;
+}
+
+/* Highlighting today */
+.day.today {
+    background-color: #1E88E5; /* Blue background for today */
+    color: white; /* White text for contrast */
+    border-radius: 50%;
+}
+
+/* Adjust the spacing for the calendar grid */
+.calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr); /* Seven columns for the days of the week */
+    gap: 4px; /* Space between cells */
+}
+
+/* Style adjustments for smaller screens */
+@media (max-width: 480px) {
+    #calendar {
+        width: 90%; /* Full width on small screens */
+        padding: 10px;
+        font-size: 12px; /* Smaller font size on small screens */
+    }
+    .calendar-header button {
+        font-size: 20px; /* Smaller arrow buttons on small screens */
+    }
+    .day {
+        width: 28px;
+        height: 28px;
+        line-height: 28px;
+    }
 }
